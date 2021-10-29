@@ -1,0 +1,111 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API DOCS",
+    "description": "DOCUMENTATION FOR API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "172.20.3.114:7000",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "User Login",
+      "description": "API For User Login"
+    },
+    {
+        "name": "User Dashboard",
+        "description": "API For User Dashboard"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/user/login": {
+      "post": {
+        "tags": ["User Login"],
+        "summary": "Login as an User",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/login_responses"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Post Data",
+            "schema": {
+              "$ref": "#/definitions/login_post"
+            }
+          }
+        ],
+        "produces": ["application/json"]
+      }
+    },
+    "/user/dashboard": {
+      "get": {
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "tags": ["User Dashboard"],
+        "summary": "User Dashboard",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/login_responses"
+            }
+          }
+        },
+        "produces": ["application/json"]
+      }
+    }
+  },
+
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "description": "Bearer eyJhbGciOiJIUzI1NiJ9.dGVzdHVzZXIxQHRlc3Rhd3MxLmNvbQ.zgzysBceAjtmm7shpVpS_zLSTwbRAmBFMMbaHwtMMzU",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+
+  "definitions": {
+    "login_post": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "default": "testuser1@testaws1.com"
+        },
+        "password": {
+          "type": "string",
+          "default": "testuser1_pwd"
+        }
+      }
+    },
+    "login_responses": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}
